@@ -1,0 +1,27 @@
+.flickr-image {
+	font-size:10px;
+}
+
+#lightbox {
+	background-color:#FFF;
+	margin:0;
+	padding:0;
+}
+#lightbox .yui3-widget-bd iframe {
+	width:50%;
+	height:50%;
+}
+
+.error-field {
+	color:#F00;
+	font-size:10px;
+}
+
+.flickr-image {
+	margin:5px;
+}
+
+#lightboxIFrame {
+	width:50%;
+	height:50%;
+}

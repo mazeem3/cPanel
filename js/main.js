@@ -1,3 +1,4 @@
+//---------------------------------PART 1------------------------------//
 function validateForm() {
     var username = document.forms["loginform"]["username"].value;
     var password = document.forms["loginform"]["password"].value;
@@ -57,6 +58,85 @@ function validateForm() {
 
     alert("User Registered");
     return true;
+}
+//---------------------------------PART 2------------------------------//
+
+function launchOverlay(params){
+	YUI().use('panel', function (Y) {
+		var panel = new Y.Panel(params);
+		panel.render();
+		panel.on('visibleChange', function(e){
+			if(e.newVal === false) {
+				panel.destroy();
+			}
+		});
+		console.log(panel);
+	});
+}
+function launchCPanelOverlay(){
+
+	var div = document.createElement('div');
+	div.setAttribute('id' , 'lightbox');
+
+	var yuibd = document.createElement('div');
+	yuibd.setAttribute('class' , 'yui3-widget-bd');
+
+	var iframe = document.createElement('iframe');
+	iframe.setAttribute('id' , 'lightboxIFrame');
+	iframe.setAttribute('border' , '0');
+	iframe.setAttribute('frameborder' , '0');
+	iframe.setAttribute('src' ,'https://www.cpanel.net');
+
+	yuibd.appendChild(iframe);
+	div.appendChild(yuibd);
+
+	document.getElementsByTagName('body')[0].appendChild(div);
+
+	/* wanted to set */
+	launchOverlay({
+		srcNode : '#lightbox',
+		width   : '600px',
+		height : '600px',
+		centered: true,
+        modal  : true
+	});
+}
 
 
+//---------------------------------PART 3------------------------------//
+function removeEveryNth(array){
+	var i = array.length;
+//function to remove every 3rd element
+  while (i--) {
+      (i + 1) % 3 === 0 && array.splice(i, 1);
+
+  }
+  return array;
+}
+//---------------------------------PART 4------------------------------//
+function getFlickrPhotos(){
+	$.ajax({
+        url: "http://www.flickr.com/services/feeds/photos_public.gne?tags=punctuation,atsign&format=json",
+        type: "GET",
+        dataType :'jsonp',
+        crossDomain: true
+    });
+}
+
+function jsonFlickrFeed(result) {
+
+	$('#flickrPhotos').empty();
+
+	for(var i in result.items){
+		var $div = $('<div />');
+		var $img = $('<img />');
+		$img.attr('src' , result.items[i].media.m);
+		$img.attr('width' , '50px');
+		$img.attr('title' , result.items[i].title);
+		$div.addClass('flickr-image');
+		$div.attr('width' , '50px');
+		$div.append($img);
+		$div.append(result.items[i].title);
+		$('#flickrPhotos').append($div);
+	}
 }
